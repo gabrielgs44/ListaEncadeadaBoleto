@@ -26,16 +26,18 @@ public class ListBoleto {
                 this.head = newNode;
 
             } else {
+
                 while (aux.getNext() != null) {
+
                     Node last = aux.getNext();
-                    
+
                     if (this.VerificarQualVencePrimeiro(last, newNode)) {
 
                         newNode.setNext(last);
                         aux.setNext(newNode);
                         return this;
                     }
-                    
+
                     aux = aux.getNext();
                 }
 
@@ -46,8 +48,39 @@ public class ListBoleto {
         return this;
     }
 
-    public void imprimir(ListBoleto list) {
-        Node currNode = list.head;
+    public ListBoleto remover(int id) {
+
+        Node aux = this.head;
+
+        if (aux.getId() == id) {
+
+            this.head = aux.getNext();
+
+        } else {
+
+            while (aux.getNext() != null) {
+                Node last = aux.getNext();
+
+                if (last.getId() == id && last.getNext() == null) {
+
+                    aux.setNext(null);
+                    return this;
+
+                } else if (last.getId() == id) {
+
+                    aux.setNext(last.getNext());
+                    return this;
+                }
+
+                aux = aux.getNext();
+            }
+        }
+
+        return this;
+    }
+
+    public void imprimir() {
+        Node currNode = this.head;
 
         while (currNode != null) {
             System.out.println();
@@ -58,6 +91,44 @@ public class ListBoleto {
             currNode = currNode.getNext();
         }
 
+    }
+
+    public double calcularValorTotal() {
+
+        Node aux = this.head;
+        double valorTotal = 0;
+
+        while (aux != null) {
+
+            valorTotal += aux.getValor();
+            aux = aux.getNext();
+
+        }
+
+        return valorTotal;
+    }
+
+    public double realizarPagamentos(double saldo) {
+
+        Node aux = this.head;
+        do {
+
+            if (saldo >= aux.getValor()) {
+
+                saldo -= aux.getValor();
+                int id = aux.getId();
+                aux = aux.getNext();
+                this.remover(id);
+
+            } else {
+
+                aux = aux.getNext();
+
+            }
+
+        } while (aux != null);
+
+        return saldo;
     }
 
     private boolean VerificarQualVencePrimeiro(Node last, Node newNode) {

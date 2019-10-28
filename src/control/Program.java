@@ -36,7 +36,17 @@ public class Program {
 
         } while (continuar == true);
 
-        list.imprimir(list);
+        list.imprimir();
+        
+        System.out.print("Digite o saldo disponível para realizar os pagamentos: ");
+        double saldo = read.nextDouble();
+        
+        saldo = list.realizarPagamentos(saldo);
+        
+        System.out.println("Contas que falta pagar: ");
+        list.imprimir();
+        System.out.println("Valor total a pagar: " + list.calcularValorTotal());
+        System.out.println("Saldo restante: " + saldo);
         read.close();
     }
 
