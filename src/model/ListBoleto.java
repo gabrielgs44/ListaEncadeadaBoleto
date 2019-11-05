@@ -20,7 +20,7 @@ public class ListBoleto {
         } else {
             Node aux = this.head;
 
-            if (this.VerificarQualVencePrimeiro(aux, newNode)) {
+            if (this.verificarQualVencePrimeiro(aux, newNode)) {
 
                 newNode.setNext(aux);
                 this.head = newNode;
@@ -31,7 +31,7 @@ public class ListBoleto {
 
                     Node last = aux.getNext();
 
-                    if (this.VerificarQualVencePrimeiro(last, newNode)) {
+                    if (this.verificarQualVencePrimeiro(last, newNode)) {
 
                         newNode.setNext(last);
                         aux.setNext(newNode);
@@ -86,7 +86,7 @@ public class ListBoleto {
             System.out.println();
             System.out.println("Id: " + currNode.getId());
             System.out.println("Valor: " + currNode.getValor());
-            System.out.println("Valor: " + currNode.getDataVencimento());
+            System.out.println("Data de Vencimento: " + currNode.getDataVencimento());
             System.out.println();
             currNode = currNode.getNext();
         }
@@ -131,7 +131,7 @@ public class ListBoleto {
         return saldo;
     }
 
-    private boolean VerificarQualVencePrimeiro(Node last, Node newNode) {
+    private boolean verificarQualVencePrimeiro(Node last, Node newNode) {
 
         int diaLastNode = Integer.parseInt(last.getDataVencimento().substring(0, 2));
         int mesLastNode = Integer.parseInt(last.getDataVencimento().substring(3, 5));
