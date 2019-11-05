@@ -29,11 +29,9 @@ public class ListBoleto {
 
                 while (aux.getNext() != null) {
 
-                    Node last = aux.getNext();
+                    if (this.verificarQualVencePrimeiro(aux.getNext(), newNode)) {
 
-                    if (this.verificarQualVencePrimeiro(last, newNode)) {
-
-                        newNode.setNext(last);
+                        newNode.setNext(aux.getNext());
                         aux.setNext(newNode);
                         return this;
                     }
@@ -59,16 +57,15 @@ public class ListBoleto {
         } else {
 
             while (aux.getNext() != null) {
-                Node last = aux.getNext();
 
-                if (last.getId() == id && last.getNext() == null) {
+                if (aux.getNext().getId() == id && aux.getNext().getNext() == null) {
 
                     aux.setNext(null);
                     return this;
 
-                } else if (last.getId() == id) {
+                } else if (aux.getNext().getId() == id) {
 
-                    aux.setNext(last.getNext());
+                    aux.setNext(aux.getNext().getNext());
                     return this;
                 }
 
